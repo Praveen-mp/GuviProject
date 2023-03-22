@@ -1,27 +1,9 @@
-function logUser() {
-    var formData = $('#login-form').serialize();
-    
-    $.ajax({
-      type: 'POST',
-      url: 'mongodb/profile.php',
-      data: formData,
-      dataType: 'json',
-      encode: true
-    })
-    .done(function(data) {
-      if(data.success) {
-        window.location.replace("profile.html");
-        alert('Login successful!');
-      } else {
-        alert(data.error);
-      }
-    });
-  }
-  
-  $(document).ready(function() {
-    $('#login-form').submit(function(event) {
-      event.preventDefault();
-      logUser();
-    });
+$(document).ready(function() {
+  // Load profile data from the server
+  $.get("mongodb/profile.php", function(data) {
+      // Update the profile page with the retrieved data
+      $("#profile-container").html(data);
   });
+});
+
   

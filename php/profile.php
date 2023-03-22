@@ -1,34 +1,53 @@
 <?php
-// Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "guvi";
+// Database connection code
+// ...
+$dbHost = 'localhost';
+$dbName = 'guvi';
+$dbUser = 'root';
+$dbPass = '';
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+try {
+  $con = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
+  $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  if($con){
+    echo "success";
+  }
+  else{
+    echo" error";
+  }
+} catch(PDOException $e) {
+  echo "Connection failed: " . $e->getMessage();
+  exit;
 }
 
-// Retrieve user data based on email address
-$email = $_GET['email'];
+// $email = session_name['email'];
+$stmt = $con->prepare("SELECT email,age,Dob,Contact FROM usersregister where email=:email");
+$stmt->execute();
 
-$sql = "SELECT * FROM users WHERE email = '$email'";
-$result = mysqli_query($conn, $sql);
+// Fetch all the results as an array
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (mysqli_num_rows($result) > 0) {
-  // User found, display their data
-  $row = mysqli_fetch_assoc($result);
-  echo "<h1>Welcome " . $row['email'] . "</h1>";
-  echo "<p>Your email is: " . $row['email'] . "</p>";
-  // Display other user data as needed
-} else {
-  // User not found, display error message
-  echo "<p>User with email " . $email . " not found.</p>";
+if (count($results) > 0) {
+  // Start building the HTML table
+  echo "<table>";
+  echo "<tr><th>Name</th><th>Age</th><th>Email</th></tr>";
+
+
+//  $stmt->bind_result('ssssss',$name,$age,$email,$dob,$num);
+foreach ($results as $row) {
+  echo "<tr>";
+    echo "<td>" . $row["email"] . "</td>";
+    echo "<td>" . $row["age"] . "</td>";
+    echo "<td>" . $row["Dob"] . "</td>";
+    echo "<td>" . $row["Contact"] . "</td>";
+  echo "</tr>";
 }
+echo "</table>";
+}
+// End the HTML table
 
-// Close the database connection
-mysqli_close($conn);
+
+// Close the prepared statement and the database connection
+// $stmt->close();
+ //$con->close();
 ?>

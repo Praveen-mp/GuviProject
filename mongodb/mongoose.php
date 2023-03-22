@@ -4,7 +4,7 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    require __DIR__ . './vendor/autoload.php';
 $client = new MongoDB\Client("mongodb://localhost:27017");
-// echo $client;
+echo $client;
    $collection = $client->companydb->Demo;
    // echo 'Document inserted with ID: ';
     $document = [
