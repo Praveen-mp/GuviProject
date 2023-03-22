@@ -20,6 +20,8 @@ try {
 
   if($user) {
     echo json_encode(array('success' => true));
+    // $_SESSION['email'] = $email;
+    // header("Location: profile.php");
   } else {
     echo json_encode(array('success' => false, 'error' => 'Invalid email or password'));
   }

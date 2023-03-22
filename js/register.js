@@ -11,6 +11,7 @@ function registerUser() {
   .done(function(data) {
     console.log(data);
   });
+ 
 }
 
 $(document).ready(function() {

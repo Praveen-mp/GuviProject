@@ -1,4 +1,4 @@
-function logUser() {
+function registerUser() {
   var formData = $('#login-form').serialize();
   
   $.ajax({
@@ -9,24 +9,14 @@ function logUser() {
     encode: true
   })
   .done(function(data) {
-    if(data.success) {
-      window.location.replace("profile.html");
-      alert('Login successful!');
-    } else {
-      alert(data.error);
-    }
+    console.log(data);
   });
+ 
 }
 
 $(document).ready(function() {
   $('#login-form').submit(function(event) {
     event.preventDefault();
-    logUser();
+    registerUser();
   });
 });
-
-
-
-
-
-

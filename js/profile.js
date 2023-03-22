@@ -1,9 +1,22 @@
-$(document).ready(function() {
-    // Get the email parameter from the URL
-    var email = new URLSearchParams(window.location.search).get('email');
-    
-    // Call the PHP script to retrieve user data
-    $.get('profile.php', { email: email }, function(data) {
-      $('#profile').html(data)
-    });
-  });
+//ajax
+console.info(sessionStorage.getItem("email"));
+$.ajax({
+  type: "POST",
+  url: "php/profile.php",
+  data: { email: sessionStorage.getItem("email") },
+  dataType: "json",
+  encode: true,
+}).done(function (data) {
+  if (data.success == true) {
+    //alert(data);
+    document.getElementById("email").innerHTML = data.email;
+    document.getElementById("age").innerHTML = data.age;
+    document.getElementById("dob").innerHTML = data.dob;
+    document.getElementById("num").innerHTML = data.num;
+    // document.getElementById("num").innerHTML = data.num;
+  } else {
+    //document.getElementById("name").innerHTML = data["name"];
+    //alert(data);
+    alert(data.error);
+  }
+});
