@@ -1,5 +1,5 @@
-//ajax
-console.info(sessionStorage.getItem("email"));
+// document.getElementById("email").innerHTML = sessionStorage.getItem("email");
+// document.getElementById("age").innerHTML = sessionStorage.getItem("age");
 $.ajax({
   type: "POST",
   url: "php/profile.php",
@@ -8,15 +8,17 @@ $.ajax({
   encode: true,
 }).done(function (data) {
   if (data.success == true) {
-    //alert(data);
+    console.log(data);
+    alert(data);
     document.getElementById("email").innerHTML = data.email;
     document.getElementById("age").innerHTML = data.age;
     document.getElementById("dob").innerHTML = data.dob;
-    document.getElementById("num").innerHTML = data.num;
-    // document.getElementById("num").innerHTML = data.num;
+    document.getElementById("contact").innerHTML = data.contact;
   } else {
     //document.getElementById("name").innerHTML = data["name"];
     //alert(data);
     alert(data.error);
   }
 });
+
+

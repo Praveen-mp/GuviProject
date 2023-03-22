@@ -19,7 +19,7 @@ try {
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
   if($user) {
-    echo json_encode(array('success' => true));
+    echo json_encode(array('success' => true,'email'=>$email));
     // $_SESSION['email'] = $email;
     // header("Location: profile.php");
   } else {
